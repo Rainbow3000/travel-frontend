@@ -1,0 +1,46 @@
+.news-feed-container{
+    width: 100%;
+    height: 400px;
+    background-color: teal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    form{
+        width: 1300px;
+        height: 200px;
+        background-color: #eee;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        h1{
+            font-weight: 400;
+        }
+        label{
+            color: gray;
+        }
+        input{
+            height: 45px;
+            outline: none;
+            padding-left: 10px;
+            border: 1px solid rgba(128, 128, 128, 0.424);
+            border-radius: 5px;
+        }
+
+        button{
+            width: 220px;
+            height: 45px;
+            margin-top: 10px;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: teal;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+    }
+}

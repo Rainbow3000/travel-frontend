@@ -1,19 +1,19 @@
-import React, { useEffect, useRef, version } from "react";
+import React, {useEffect, useRef, useState } from "react";
 import "./category.scss";
-import sapa from "../../images/sapa1.jpg";
-import tamdao from "../../images/tamdao.jpg";
-import nhatrang from "../../images/nhatrang.jpg";
-import dalat from "../../images/dalat.jpg";
-import saigon from "../../images/saigon.jpg";
-
+import { Link} from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
+import {publicRequest} from '../../requestMethod'
 
 const Category = () => {
+
+
+  const [categorys,setCategorys] = useState([]);
+
+
   const sliceRef = useRef();
   let widthDefault = 1300;
   let scrollValueInit = 0; 
-
 
   const handleArrowRightCick = () => {
     let value = sliceRef.current.getBoundingClientRect().width - widthDefault; 
@@ -30,6 +30,7 @@ const Category = () => {
 
 
 
+
   const handleArrowLeftCick = () => {
       if(scrollValueInit > 0){
             scrollValueInit -= 325; 
@@ -37,11 +38,24 @@ const Category = () => {
             widthDefault -= 325; 
       }
   };
+
+  const getCategory = async()=>{
+    try {
+        const response = await publicRequest.get('/category'); 
+        setCategorys(response.data?.data); 
+    } catch (error) {
+      console.log(error); 
+    }
+  }
  
+
+  useEffect(()=>{
+     getCategory(); 
+  },[])
 
  
   return (
-    <div className="category-container">
+    <div className="category-container" id="category">
       <h1>DANH MỤC</h1>
       <div className="hr"></div>
       <div className="category-slice">
@@ -49,69 +63,26 @@ const Category = () => {
           <FaArrowLeft />
         </div>
         <div className="category-list" ref={sliceRef}>
-          <div className="category-item">
-            <img src={sapa} alt="" />
-            <div className="category-overlay-f"></div>
-            <div className="category-overlay"></div>
-            <div className="category-info">
-              <span className="category-name">SAPA</span>
-              <button className="category-btn">XEM</button>
-            </div>
-          </div>
-          <div className="category-item">
-            <img src={dalat} alt="" />
-            <div className="category-overlay-f"></div>
-            <div className="category-overlay"></div>
-            <div className="category-info">
-              <span className="category-name">ĐÀ LẠT</span>
-              <button className="category-btn">XEM</button>
-            </div>
-          </div>
-          <div className="category-item">
-            <img src={tamdao} alt="" />
-            <div className="category-overlay-f"></div>
-            <div className="category-overlay"></div>
-            <div className="category-info">
-              <span className="category-name">TAM ĐẢO</span>
-              <button className="category-btn">XEM</button>
-            </div>
-          </div>
-          <div className="category-item">
-            <img src={nhatrang} alt="" />
-            <div className="category-overlay-f"></div>
-            <div className="category-overlay"></div>
-            <div className="category-info">
-              <span className="category-name">NHA TRANG</span>
-              <button className="category-btn">XEM</button>
-            </div>
-          </div>
-          <div className="category-item">
-            <img src={saigon} alt="" />
-            <div className="category-overlay-f"></div>
-            <div className="category-overlay"></div>
-            <div className="category-info">
-              <span className="category-name">SÀI GÒN</span>
-              <button className="category-btn">XEM</button>
-            </div>
-          </div>
-          <div className="category-item">
-            <img src={saigon} alt="" />
-            <div className="category-overlay-f"></div>
-            <div className="category-overlay"></div>
-            <div className="category-info">
-              <span className="category-name">SÀI GÒN</span>
-              <button className="category-btn">XEM</button>
-            </div>
-          </div>
-          <div className="category-item">
-            <img src={saigon} alt="" />
-            <div className="category-overlay-f"></div>
-            <div className="category-overlay"></div>
-            <div className="category-info">
-              <span className="category-name">SÀI GÒN</span>
-              <button className="category-btn">XEM</button>
-            </div>
-          </div>
+
+          {
+            categorys && categorys.map(item=>{
+              return (
+                <Link to={`/category/details/${item.id}`} className="link">
+                  <div className="category-item">
+                    <img src={item.categoryImg} alt="" />
+                    <div className="category-overlay-f"></div>
+                    <div className="category-overlay"></div>
+                    <div className="category-info">
+                      <span className="category-name">{item.categoryName}</span>
+                      <button className="category-btn">XEM</button>
+                    </div>
+                  </div>
+                </Link>
+                
+              )
+            })
+          }
+
         </div>
         <div className="arrow-btn btn-right" onClick={handleArrowRightCick}>
           <FaArrowRight />

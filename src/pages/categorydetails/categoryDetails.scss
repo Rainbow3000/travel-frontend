@@ -1,0 +1,87 @@
+.category-details-container{
+    width:100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 120px;
+    h1{
+        font-weight: 500;
+        margin: 20px 0;
+    }
+    .category-details-item{
+        width: 1300px;
+        height: auto;
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 30px;
+    }
+
+    .category-details-main{
+        width: 1300px;
+        display: flex;
+        flex-direction: row;
+        height: auto;
+        min-height: 500px;
+        justify-content: space-between;
+        margin-top: 30px;
+        .category-filter{
+            width: 300px;
+            border-right: 2px solid rgba(128, 128, 128, 0.163);
+            height: auto;
+            display: flex; 
+            flex-direction: column;
+            h2,h3{
+                font-weight: 500;
+            }
+            .travel-type{
+                ul{
+                    width: 100%;
+                    padding-left: 30px;
+                    border-top: 0.5px solid rgba(128, 128, 128, 0.196);
+                    padding-top: 20px;
+                    li span{
+                        font-size: 16px;
+                        margin-left: 10px;
+                    }
+                }
+                margin-top: 30px;
+            }
+        }
+        .category-travel-list{
+            width: 900px;
+            height: auto;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            .category-sort{
+                ul{
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: max-content;
+    
+                    li{
+                        margin-left: 30px;
+                        width: 200px;
+                        height: 40px;
+                        padding: 10px;
+                        color: black;
+                        background: none;
+                        cursor: pointer;
+                        border-radius: 5px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        font-weight: 300;
+                        font-size: 20px;
+                        background-color: rgba(128, 128, 128, 0.203);
+                    }
+                }
+            }
+        }
+    }
+}

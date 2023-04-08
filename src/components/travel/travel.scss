@@ -1,0 +1,116 @@
+.travel-container{
+    width: 315px;
+    height: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+    align-items: center;
+    border: 0.4px solid rgba(128, 128, 128, 0.229);
+    img{
+        width: 100%;
+        height: 250px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+    .travel-name{
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 20px;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .travel-price{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 10px;
+        .travel-price-old{
+            color: gray;
+            text-decoration: line-through;
+        }
+
+        .travel-price-new{
+            color:orangered;
+            font-weight: bold;
+        }
+
+
+
+    }
+
+    .travel-goto{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+         
+        button{
+            width: 120px;
+            height: 45px;
+            border-radius: 5px;
+            border: none;
+            z-index: 999;
+            background-color: rgba(0, 0, 255, 0.624);
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            &:hover{
+                background-color: blue;
+            }
+        }
+    }
+
+    .travel-overlay{
+        position: absolute;
+        background-color: #33333346;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 5px;
+        display: none;
+    }
+    .travel-icon{
+        width: 60px;
+        height: 60px;
+        background-color: #eeeeeea7;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        transform: translate(-50%,-50%);
+        color: 40px;
+        z-index: 999;
+        display: none;
+        cursor: pointer;
+        &:hover{
+            background-color: #eee;
+        }
+        .travel-details-icon{
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    }
+
+    &:hover{
+        .travel-overlay{
+            display: block;
+        }
+        .travel-icon{
+            display: block;
+        }
+    }
+}
