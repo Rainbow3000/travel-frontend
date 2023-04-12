@@ -1,15 +1,17 @@
-import React,{useEffect, useRef, useState} from "react";
+import React,{useEffect,useState} from "react";
 import "./order.scss";
 import {AiOutlinePlus} from 'react-icons/ai'
 import {AiOutlineMinus} from 'react-icons/ai'
 import  {useDispatch,useSelector} from 'react-redux'
 import { getSingleTravel } from "../../store/slice/travelSice";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {useLocation} from 'react-router-dom'
-import axios from "axios";
-import { publicRequest } from "../../requestMethod";
+import { userRequest } from "../../requestMethod";
 import { priceFormat } from "../../utils/convertPrice";
 import { useNavigate } from "react-router-dom";
+import { validateEmail } from "../../validate/validate";
+import { setOrderErrorMessage } from "../../store/slice/errorSlice";
 
 const Order = () => {
 
@@ -30,7 +32,7 @@ const Order = () => {
 
   const {travelDetails} = useSelector(state=>state.travel); 
   const {singlePriceTable} = useSelector(state=>state.priceTable); 
-
+  const {orderErrorMessage} = useSelector(state=>state.error); 
 
   const handleDecrement = (type)=>{
      if(type === "elder" && elderQuantity <= 1){
@@ -72,22 +74,51 @@ const Order = () => {
          peopleQuantity:elderQuantity + childrentQuantity, 
          status:"Chờ xác nhận"
        }
-     const response =  await publicRequest.post('/travel/order',data); 
-     console.log(response.data?.data); 
 
-     setChildrentQuantity(0)
-     setElderQuantity(1)
-     setCustomerEmail("")
-     setCustomerName("")
-     setCustomerAddress("")
-     setCustomerNote("")
-     setCustomerPhone("")
+       if(data.customerName.trim().length <=0){
+        dispatch(setOrderErrorMessage("Tên không được bỏ trống !"))
+        return; 
+       }
 
+       if(data.customerPhone.trim().length <=0){
+        dispatch(setOrderErrorMessage("Số điện thoại không được bỏ trống !"))
+        return; 
+       }
+
+       if(data.customerEmail.trim().length <=0){
+        dispatch(setOrderErrorMessage("Email không được bỏ trống !"))
+        return; 
+       }
+
+       if(data.customerAddress.trim().length <=0){
+        dispatch(setOrderErrorMessage("Địa chỉ không được bỏ trống !"))
+        return; 
+       }
+       
+          
+       const isEmail = validateEmail(data.customerEmail); 
+          
+       if(isEmail === null){
+           dispatch(setOrderErrorMessage("Email không hợp lệ"))
+           return; 
+       }
+
+
+      await userRequest.post('/travel/order',data); 
+     
+      
+      setChildrentQuantity(0)
+      setElderQuantity(1)
+      setCustomerEmail("")
+      setCustomerName("")
+      setCustomerAddress("")
+      setCustomerNote("")
+      setCustomerPhone("")
+      toast("Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sau"); 
+      navigate('/travel/order')
      }catch(error){
         console.log(error); 
      }
-
-    
 
   }
 
@@ -110,6 +141,7 @@ const Order = () => {
 
   return (
     <div className="order-container">
+      <ToastContainer style={{marginTop:120}}/>
       <div className="order-item">
         <h1>Thông tin chuyến đi</h1>
         <div className="order-details">
@@ -162,24 +194,25 @@ const Order = () => {
           <h1 className="customer-info-title">Thông tin liên hệ của (Anh/Chị)</h1>
            <div className="customer-info-item">
                 <form action="" onSubmit={handleSubmitForm}>
+                  <span style={{color:'red'}}>{orderErrorMessage && orderErrorMessage[0]}</span>
                     <div className="customer-name">
                         <span>Họ tên (Anh / Chị)</span>
-                        <input value={customerName} type="text" onChange={(e)=>setCustomerName(e.target.value)}  />
+                        <input value={customerName} type="text" onChange={(e)=>setCustomerName(e.target.value)} required  />
                     </div>
                     <div className="customer-contact">
                         <div>
                             <span>Số điện thoại</span>
-                            <input value={customerPhone} type="text" onChange={(e)=>setCustomerPhone(e.target.value)}/>
+                            <input value={customerPhone} type="text" onChange={(e)=>setCustomerPhone(e.target.value)} required/>
                         </div>
                         <div>
                             <span>Email</span>
-                            <input value={customerEmail} type="text" placeholder="Nhận thông tin về tour của bạn" onChange={(e)=>setCustomerEmail(e.target.value)} />
+                            <input value={customerEmail} type="text" placeholder="Nhận thông tin về tour của bạn" onChange={(e)=>setCustomerEmail(e.target.value)} required />
                         </div>
                         
                     </div>
                     <div className="customer-address">
                         <span>Địa chỉ</span>
-                        <input value={customerAddress} type="text" placeholder="Địa chỉ" onChange={(e)=>setCustomerAddress(e.target.value)} />
+                        <input value={customerAddress} type="text" placeholder="Địa chỉ" onChange={(e)=>setCustomerAddress(e.target.value)} required/>
                     </div>
                     <div className="customer-note">
                         <span>Ghi chú</span>

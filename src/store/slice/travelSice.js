@@ -25,7 +25,8 @@ const initState = {
   travelDetails: null,
   travelsByCategoryId: [],
   travelsAfterFilter:[],
-  travelsAfterFilterByCategoryId:[]
+  travelsAfterFilterByCategoryId:[], 
+  travelBySearch:[]
 };
 
 const travelSlice = createSlice({
@@ -56,6 +57,13 @@ const travelSlice = createSlice({
         }
     },
 
+    travelBySearch:(state,action)=>{
+        if(action.payload.trim() === ""){
+            state.travelsAfterFilter = state.travels; 
+            return; 
+        }
+         state.travelsAfterFilter = state.travels.filter(item=>item.travelName.includes(action.payload)); 
+    },
     travelFiltersByCategoryId:(state,action)=>{
         if(action.payload === 0){
             state.travelsAfterFilterByCategoryId = state.travelsByCategoryId.sort((x,y)=>{
@@ -86,6 +94,6 @@ const travelSlice = createSlice({
   }
 });
 
-export const { setTravelList, getSingleTravel, travelFilters,travelFiltersByCategoryId} = travelSlice.actions;
+export const { setTravelList, getSingleTravel, travelFilters,travelFiltersByCategoryId,travelBySearch} = travelSlice.actions;
 
 export default travelSlice.reducer;

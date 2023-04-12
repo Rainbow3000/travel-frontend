@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginErrorMessage } from "../../store/slice/errorSlice";
 import { validateEmail } from "../../validate/validate";
-import  { setUser,userLogout } from "../../store/slice/userSlice";
+import  userSlice, { setUser,userLogout } from "../../store/slice/userSlice";
+import { travelBySearch } from "../../store/slice/travelSice";
 import {FiLogOut} from 'react-icons/fi'
 import "./header.scss";
+import {BiUser} from 'react-icons/bi'
+import { ToastContainer, toast } from "react-toastify";
 import { publicRequest } from "../../requestMethod";
 const Header = () => {
   const location = useLocation(); 
   const [loginFormEnable, setLoginFormEnable] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [textSearch,setTextSearch] = useState(""); 
 
   const dispatch = useDispatch();
 
+  const navigate =useNavigate(); 
 
   const { user } = useSelector((state) => state.user);
+
+  const {loginErrorMessage} = useSelector(state=>state.error)
 
   const handleShowLoginForm = () => {
     setLoginFormEnable(!loginFormEnable);
@@ -26,7 +33,6 @@ const Header = () => {
   const handleCloseLoginForm = () => {
     setLoginFormEnable(false);
   };
-
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -56,6 +62,8 @@ const Header = () => {
         handleCloseLoginForm();
         setEmail("");
         setPassword("");
+        toast("Đăng nhập thành công !")
+        navigate('/')
       } else {
         dispatch(setLoginErrorMessage(response.data?.errorMessage));
       }
@@ -67,12 +75,19 @@ const Header = () => {
   const handleLogout = ()=>{
     dispatch(userLogout());
     dispatch(setUser(null));
+    toast("Đăng xuất thành công !")
+    navigate("/"); 
+  }
+
+  const handleClickSearchIcon = ()=>{
+    window.scrollTo({ top: 1200, left: 0, behavior: "smooth" });
   }
 
 
 
   return (
     <div className="header-container">
+      <ToastContainer style={{marginTop:200}} />
       <div className="header-top">
         <div className="header-top-left">
           <Link className="link" to="/">
@@ -93,8 +108,8 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link className="link" to="">
-                Đặt lịch của bạn
+              <Link className="link" to="/travel/order">
+                Lịch đã đặt
               </Link>
             </li>
 
@@ -126,9 +141,11 @@ const Header = () => {
                     className="header-login-form"
                   >
                     <form action="#" onSubmit={handleSubmitForm}>
+                      <span style={{color:'red'}}>{loginErrorMessage && loginErrorMessage[0]}</span>
                       <div className="email-input">
                         <span>Email</span>
                         <input
+                          required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           type="text"
@@ -137,6 +154,7 @@ const Header = () => {
                       <div className="password-input">
                         <span>Password</span>
                         <input
+                          required
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           type="password"
@@ -160,7 +178,10 @@ const Header = () => {
               </>
             ) : (
                 <>
-                    <li style={{fontWeight:'bold'}}>{user.email}</li>
+                    <li style={{display:'flex',alignItems:'center'}}>
+                      <BiUser style={{marginRight:10}}/>
+                      <li style={{fontWeight:'bold'}}>{user.email.split("@")[0]}</li>
+                    </li>
                     <li onClick={handleLogout} style={{color:'red',fontWeight:'bold',fontSize:20,cursor:'pointer'}}><FiLogOut/></li>
                 </>
             )}
@@ -168,13 +189,14 @@ const Header = () => {
         </div>
       </div>
       <div className="header-body">
-        <form action="">
+        <form action="#" onSubmit={e=>e.preventDefault()}>
           <input
+            onChange={e=>dispatch(travelBySearch(e.target.value))}
             type="text"
             placeholder="Tìm kiếm địa điểm du lịch của bạn..."
           />
-          <button>
-            <BsSearch />
+          <button onClick={handleClickSearchIcon}>
+              <BsSearch  />
           </button>
         </form>
       </div>

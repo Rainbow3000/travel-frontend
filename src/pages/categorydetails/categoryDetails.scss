@@ -57,6 +57,9 @@
             display: flex;
             flex-direction: column;
             .category-sort{
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 ul{
                     display: flex;
                     align-items: center;

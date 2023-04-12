@@ -28,7 +28,7 @@ const TravelList = () => {
 
   
   return (
-    <div className='travel-list-container'>
+    <div className='travel-list-container' id='#travel'>
         <h1>ĐỊA ĐIỂM NỔI BẬT</h1>
         <div className='hr'></div>
         <div className='travel-list-item'>

@@ -11,7 +11,7 @@ const TravelCate = ({item}) => {
             </div>
             <div className='trave-cate-details'>
                 <span>{item && item.travelName}</span>
-                <span>{item && item.travelDetails?.travelDescription}</span>
+                <span>{item && item.travelDescription}</span>
                 <div className='cate-travel-price'>
                     <span>Giá: <mark style={{fontSize:20,color:'orangered'}}>{item && priceFormat(item.travelPriceNew)}</mark></span>
                     <span>{item && priceFormat(item.travelPriceOld)}</span>

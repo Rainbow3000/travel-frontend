@@ -23,7 +23,7 @@ const Travel = ({item}) => {
             <div>
 
             <span className='travel-time'><span style={{fontWeight:'700'}}>Trạng thái:</span>{item.travelStatus === 1 && " Còn chỗ"}</span><br/>
-            <span className='travel-time'><span style={{fontWeight:'700'}}>Thời gian:</span>{item.travelDateNumber} ngày</span>
+            <span className='travel-time'><span style={{fontWeight:'700'}}>Thời gian:</span>{item.travelDateNumber}</span>
             </div>
             <button>ĐẶT LỊCH</button>
         </div>

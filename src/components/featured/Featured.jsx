@@ -1,7 +1,6 @@
 import React from 'react'
 import './featured.scss'
-import { Link } from 'react-router-dom'
-import featured from '../../images/featured1.jpg'
+import featured from '../../images/featured.jpg'
 const Featured = () => {
   return (
     <div className='featured-container'>

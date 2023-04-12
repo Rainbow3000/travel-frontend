@@ -19,17 +19,17 @@
       .details-slice-wrap {
         position: relative;
         width: 1300px;
-        height: 500px;
+        height: 600px;
         overflow: hidden;
         display: flex;
         .details-slice {
           width: auto;
-          height: 500px;
+          height: 600px;
           display: flex;
           transition: all 1s ease;
           img {
             width: 1300px;
-            height: 500px;
+            height: 600px;
             object-fit: cover;
             border-radius: 5px;
           }

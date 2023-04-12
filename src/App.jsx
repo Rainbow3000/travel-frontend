@@ -9,16 +9,19 @@ import message from './images/messenger.png'
 import Register from './pages/register/Register';
 import CategoryDetails from './pages/categorydetails/CategoryDetails';
 import { useSelector } from 'react-redux';
+import UserOrder from './pages/userOrder/UserOrder';
 
 function App() {
 const {user} = useSelector(state=>state.user); 
 
   return (
+    <>
     <div className="App">
         <div className="app-container">
         <Header/>
         <Routes>
           <Route path='/' element={<Home/>} />
+          <Route path= '/travel/order' element= {<UserOrder/>} />
           <Route path='/category/details/:id' element ={<CategoryDetails/>} />
           <Route path='/register' element={<Register/>} />
           <Route path='/travel/details/:id' element={<Details/>} />
@@ -33,6 +36,7 @@ const {user} = useSelector(state=>state.user);
         <img className='message-icon' src={message} alt="" />
       </div>
     </div>
+    </>
   );
 }
 

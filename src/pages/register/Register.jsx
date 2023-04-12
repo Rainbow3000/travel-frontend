@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './register.scss'
 import { Link } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import { setRegisterErrorMessage } from '../../store/slice/errorSlice'
 import { validateEmail } from '../../validate/validate'
 import { publicRequest } from '../../requestMethod'
+import { useNavigate } from 'react-router-dom'
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Register = () => {
     const [email,setEmail] = useState(""); 
     const [password,setPassword] = useState(""); 
@@ -13,7 +18,7 @@ const Register = () => {
 
     const {registerErrorMessage} = useSelector(state=>state.error)
     const dispatch = useDispatch(); 
-
+    const navigate = useNavigate(); 
     const handleSubmitForm = async(e)=>{
         e.preventDefault(); 
         try {
@@ -39,15 +44,25 @@ const Register = () => {
                 setEmail("")
                 setPassword("")
                 setRepassword(""); 
+                toast("Đăng kí tài khoản thành công")
             }else {
                 dispatch(setRegisterErrorMessage(response.data?.errorMessage)); 
+                toast("Đăng kí tài khoản thất bại !")
             }
-        } catch (error) {
-            dispatch(setRegisterErrorMessage(error.errorMessage)); 
+        } catch (error) {         
+            dispatch(setRegisterErrorMessage(error.response.data.errorMessage.replace("[","").replace("]","").split(":")[1])); 
         }
     }
+
+    useEffect(()=>{
+        if(JSON.parse(localStorage.getItem('user')) !== null){
+            navigate('/'); 
+        }
+    },[])
+
   return (
     <div className='register-container'>
+        <ToastContainer style={{color:successMessage.length > 0 ? "green":"red",marginTop:150}}/>
         <div className='register-form'>
             <form action="" onSubmit={handleSubmitForm}>
                 <h1>Đăng ký tài khoản</h1>

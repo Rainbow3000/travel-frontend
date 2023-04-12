@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initState = {
     registerErrorMessage:[], 
     loginErrorMessage:[],
-    orderErrorMessage:[]
+    orderErrorMessage:[],
 }
 
 
@@ -23,7 +23,8 @@ const errorSlice = createSlice({
         }, 
 
         setOrderErrorMessage:(state,action)=>{
-            
+            state.orderErrorMessage = []; 
+            state.orderErrorMessage.push(action.payload); 
         }
     }
 })
