@@ -92,7 +92,7 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <ToastContainer style={{ marginTop: 200, width:widthScreen < 480 && "50%" ,position:'relative',right:0}} />
+      <ToastContainer style={{ marginTop: 200, width:widthScreen < 480 && "50%"}} />
       <div className="header-top">
         <div className="header-top-left">
           <Link className="link" to="/">

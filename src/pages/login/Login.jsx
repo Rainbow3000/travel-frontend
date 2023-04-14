@@ -72,8 +72,7 @@ const Login = () => {
         style={{
           color: successMessage.length > 0 ? "green" : "red",
           marginTop: 150,
-          width:widthScreen < 480 && "50%",
-          position:'relative',right:0
+          width:widthScreen < 480 && "50%"
         }}
       />
       <div className="register-form">

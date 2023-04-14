@@ -167,7 +167,7 @@ const Details = () => {
       <div className="details-item">
         <h1>{travelDetails && travelDetails.travelName}</h1>
         <ToastContainer
-          style={{ marginTop: 100, fontWeight: "bold", color: "red", width:widthScreen < 480 && "50%",position:'relative',right:0}}
+          style={{ marginTop: 100, fontWeight: "bold", color: "red", width:widthScreen < 480 && "50%"}}
         />
         <div className="details-item-wrap">
           <div className="details-slice-wrap">
