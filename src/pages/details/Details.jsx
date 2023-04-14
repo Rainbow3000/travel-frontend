@@ -22,7 +22,7 @@ const Details = () => {
   const [travelSchedule, setTravelSchedule] = useState([]);
   const [comments, setComments] = useState([]);
   const [userComment, setUserComment] = useState("");
-  const [widthScreen,setWidthScreen] = useState(window.innerWidth)
+  const [widthScreen, setWidthScreen] = useState(window.innerWidth);
   const [travelImages, setTravelImages] = useState([]);
 
   const navigate = useNavigate();
@@ -70,6 +70,7 @@ const Details = () => {
   const notify = () => {
     if (user === null) {
       toast("Bạn cần đăng nhập trước khi đặt vé !");
+      return;
     } else {
       navigate(`/travel/details/${travelId}/order`);
     }
@@ -102,7 +103,6 @@ const Details = () => {
     } catch (error) {}
   };
 
-
   const handleSetSinglePriceTable = (item) => {
     localStorage.setItem("singlePriceTable", JSON.stringify(item));
     dispatch(setSinglePriceTable(item));
@@ -110,7 +110,9 @@ const Details = () => {
 
   const getTravelImages = async () => {
     try {
-      const response = await publicRequest.get(`/travelDetails/image/travelId/${travelId}`);
+      const response = await publicRequest.get(
+        `/travelDetails/image/travelId/${travelId}`
+      );
       setTravelImages(response.data?.data);
     } catch (error) {}
   };
@@ -130,12 +132,11 @@ const Details = () => {
   const handleComment = async (e) => {
     e.preventDefault();
     if (user === null) {
-      toast("Bạn cần đăng nhập trước khi đặt vé !");
+      toast("Bạn cần đăng nhập trước khi bình luận !");
       setUserComment("");
-      if(widthScreen < 700){
-          navigate('/login')
-      }else{
-        navigate('/'); 
+      if (widthScreen < 700) {
+        navigate("/login");
+        return; 
       }
       return;
     }
@@ -160,15 +161,18 @@ const Details = () => {
     }
   };
 
-  console.log(travelImages);
-
   return (
     <div className="details-container">
       <div className="details-item">
         <h1>{travelDetails && travelDetails.travelName}</h1>
-        <ToastContainer
-          style={{ marginTop: 100, fontWeight: "bold", color: "red", width:widthScreen < 480 && "50%"}}
-        />
+        {/* <ToastContainer
+          style={{
+            marginTop: 100,
+            fontWeight: "bold",
+            color: "red",
+            width: widthScreen < 480 && "50%",
+          }}
+        /> */}
         <div className="details-item-wrap">
           <div className="details-slice-wrap">
             <div className="arrow-btn" onClick={handleArrowBtnlick}>
