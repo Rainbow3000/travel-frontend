@@ -6,13 +6,17 @@ import { useSelector } from 'react-redux';
 const UserOrder = () => {
 
     const [order,setOrder] = useState([]); 
-    const {travel} = useSelector(state=>state.travel); 
-
+    const {travels} = useSelector(state=>state.travel); 
+    const [windowWidth] = useState(window.innerWidth) 
     const {user} = useSelector(state=>state.user); 
 
     const getOrder = async()=>{
         try {
-          const response = await userRequest.get(`/travel/order/userId/${user.id}`); 
+          const response = await userRequest.get(`/travel/order/userId/${user.id}`,{
+            headers:{
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))?.accessToken || null}` 
+            }
+          }); 
           setOrder(response.data?.data); 
         } catch (error) {
           console.log(error); 
@@ -31,12 +35,24 @@ const UserOrder = () => {
       <table id="customers">
         <tr>
           <th>Tên khách hàng</th>
-          <th>Email</th>
-          <th>Địa chỉ</th>
+          {
+            windowWidth >= 700  &&  <th>Email</th>
+          }
+         
+         
+          {
+            windowWidth >= 700  &&   <th>Địa chỉ</th>
+          }
           <th>Số điện thoại</th>
           <th>Tên chuyến đi</th>
-          <th>Số người</th>
-          <th>Ghi chú</th>
+          {
+            windowWidth >= 700  &&   <th>Số người</th>
+          }
+          
+          {
+            windowWidth >= 700  &&   <th>Ghi chú</th>
+          }
+         
           <th>Tổng tiền</th>
           <th>Trạng thái</th>
           <th>Thao tác</th>
@@ -44,16 +60,32 @@ const UserOrder = () => {
 
         {
           order && order.map(item=>{
-            const travelFilter = travel && travel.find(element => element.id === item.id); 
+            const travelFilter = travels && travels.find(element => element.id === item.id); 
+            console.log(travelFilter?.travelName);
             return (
               <tr>
                 <td>{item.customerName}</td>
-                <td>{item.customerEmail}</td>
-                <td>{item.customerAddress}</td>
+                {
+                  windowWidth >= 700 && <td>{item.customerEmail}</td>
+                }
+
+{
+                  windowWidth >= 700 &&  <td>{item.customerAddress}</td>
+                }
+                
+               
                 <td>{item.customerPhone}</td>
+
                 <td>{travelFilter && travelFilter.travelName}</td>
-                <td>{item.peopelQuantity}</td>
-                <td>{item.customerNote}</td>
+
+                {
+                  windowWidth >= 700 &&  <td>{item.peopelQuantity}</td>
+                }
+
+{
+                  windowWidth >= 700 &&   <td>{item.customerNote}</td>
+                }
+               
                 <td>{item.totalPrice}</td>
                 <td>{item.status}</td>
                 <td>

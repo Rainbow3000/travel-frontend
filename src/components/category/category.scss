@@ -1,3 +1,4 @@
+@import '../../../responsive';
 .category-container{
     width: 100%;
     height: max-content;
@@ -7,6 +8,9 @@
     margin-top: 30px;
     background-color: #adc3db9e;
     padding: 20px 0;
+    @include mobile{
+        margin-top: 100px;
+    }
     h1{
         font-weight: bold;
         color: #333;
@@ -24,6 +28,14 @@
         border-radius: 5px;
         margin-top: 30px;
         position: relative;
+        @include mobile{
+            width: 100%;
+            justify-content: left;
+        }
+
+        @include tablet{
+            width: 100%;
+        }
         .arrow-btn{
             width: 60px;
             height: 60px;
@@ -56,7 +68,8 @@
             flex-wrap: nowrap;
             width: auto;
             border-radius: 5px;
-            transition: all 1s ease;
+            transition: all 1s ease;   
+              
             .category-item{
                 width: 315px;
                 height: 450px;
@@ -64,6 +77,9 @@
                 margin: 0 5px;
                 position: relative;
                 cursor: pointer;
+                @include mobile{
+                    
+                }
                 .category-overlay-f{
                     background-color: rgba(0, 0, 0, 0.279);
                     position: absolute;

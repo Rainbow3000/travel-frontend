@@ -13,7 +13,7 @@ const Travel = ({item}) => {
         <FiSearch className='travel-details-icon'/>
       </div>
         <div className='travel-overlay'></div>
-        <img  src={item.travelImg} alt="" />
+        <img src={item.travelImg} alt="" />
         <span className='travel-name'>{item.travelName}</span>
         <div className='travel-price'>
         <span className='travel-price-new'>{priceFormat(item.travelPriceNew)}</span>

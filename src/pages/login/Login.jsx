@@ -1,65 +1,62 @@
 import React, { useEffect, useState } from "react";
-import "./register.scss";
+import "../register/register.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setRegisterErrorMessage } from "../../store/slice/errorSlice";
+import {
+  setLoginErrorMessage,
+  setRegisterErrorMessage,
+} from "../../store/slice/errorSlice";
 import { validateEmail } from "../../validate/validate";
 import { publicRequest } from "../../requestMethod";
 import { useNavigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setUser } from "../../store/slice/userSlice";
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rePassword, setRepassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const [screenWidth, setScreenWith] = useState(window.innerWidth);
-
-  const { registerErrorMessage } = useSelector((state) => state.error);
+  const { loginErrorMessage } = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const isEmail = validateEmail(email);
-
-      if (isEmail === null) {
-        dispatch(setRegisterErrorMessage("Email không hợp lệ"));
-        return;
-      }
-      if (password !== rePassword) {
-        dispatch(setRegisterErrorMessage("Mật khẩu không khớp"));
+      if (email.trim() === "") {
+        dispatch(setLoginErrorMessage("Email không được để trống !"));
         return;
       }
 
-      const response = await publicRequest.post("/auth/register", {
+      if (validateEmail(email) === null) {
+        dispatch(setLoginErrorMessage("Email không hợp lệ !"));
+        return;
+      }
+
+      if (email.length < 8) {
+        dispatch(setLoginErrorMessage("Mật khẩu phải lớn hơn 8 kí tự"));
+        return;
+      }
+
+      const response = await publicRequest.post("/auth/login", {
         email,
         password,
       });
 
       if (response.data?.message === "SUCCESS") {
-        setSuccessMessage("Đăng kí tài khoản thành công !");
-        dispatch(setRegisterErrorMessage(""));
+        dispatch(setUser(response.data?.data));
         setEmail("");
         setPassword("");
-        setRepassword("");
-        toast("Đăng kí tài khoản thành công");
+        toast("Đăng nhập thành công !");
+        navigate("/");
       } else {
-        dispatch(setRegisterErrorMessage(response.data?.errorMessage));
-        toast("Đăng kí tài khoản thất bại !");
+        dispatch(setLoginErrorMessage(response.data?.errorMessage));
       }
     } catch (error) {
-      dispatch(
-        setRegisterErrorMessage(
-          error.response.data.errorMessage
-            .replace("[", "")
-            .replace("]", "")
-            .split(":")[1]
-        )
-      );
+      dispatch(setLoginErrorMessage(error.errorMessage));
     }
   };
 
@@ -78,13 +75,10 @@ const Register = () => {
         }}
       />
       <div className="register-form">
-        <form action="" onSubmit={handleSubmitForm}>
-          <h1>Đăng ký tài khoản</h1>
-          <span style={{ color: "green" }}>
-            {successMessage && successMessage}
-          </span>
+        <form style={{padding:10,width:"90%"}} action="" onSubmit={handleSubmitForm}>
+          <h1>Đăng nhập</h1>
           <span style={{ color: "red" }}>
-            {registerErrorMessage && registerErrorMessage[0]}
+            {loginErrorMessage && loginErrorMessage[0]}
           </span>
           <div className="email-regsiter">
             <span>Email</span>
@@ -106,20 +100,11 @@ const Register = () => {
             />
           </div>
 
-          <div className="repassword-register">
-            <span>Nhập lại mật khẩu</span>
-            <input
-              value={rePassword}
-              onChange={(e) => setRepassword(e.target.value)}
-              type="password"
-              required
-            />
-          </div>
-          <Link to={screenWidth < 700 ? "/login" : "/"} className="link">
-            <span className="have-account-link">Bạn đã có tài khoản ?</span>
+          <Link to="/register" className="link">
+            <span className="have-account-link">Bạn chưa có tài khoản ?</span>
           </Link>
           <div className="button-register">
-            <button type="submit">Đăng ký</button>
+            <button type="submit">Đăng nhập</button>
           </div>
         </form>
       </div>
@@ -127,4 +112,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

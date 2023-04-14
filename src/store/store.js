@@ -8,7 +8,8 @@ const store = configureStore({
         travel:slice.travelSice, 
         priceTable:slice.priceTableSlice, 
         user : slice.userSlice, 
-        error:slice.errorSlice
+        error:slice.errorSlice,
+        menu:slice.menuSlice
     }
 })
 

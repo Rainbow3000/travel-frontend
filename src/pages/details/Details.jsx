@@ -4,8 +4,8 @@ import moment from "moment/moment";
 import { BiRightArrow } from "react-icons/bi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link,useLocation,useNavigate } from "react-router-dom";
-import { publicRequest } from "../../requestMethod";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { publicRequest, userRequest } from "../../requestMethod";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTravel, getSingleTravel } from "../../store/slice/travelSice";
 
@@ -21,11 +21,11 @@ const Details = () => {
   const [featured, setFeatured] = useState([]);
   const [travelSchedule, setTravelSchedule] = useState([]);
   const [comments, setComments] = useState([]);
-  const [userComment,setUserComment] = useState(""); 
+  const [userComment, setUserComment] = useState("");
+  const [widthScreen,setWidthScreen] = useState(window.innerWidth)
+  const [travelImages, setTravelImages] = useState([]);
 
-  const [travelImages,setTravelImages] = useState([]); 
-
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const location = useLocation();
 
   const travelId = location.pathname.split("/")[3];
@@ -70,8 +70,8 @@ const Details = () => {
   const notify = () => {
     if (user === null) {
       toast("Bạn cần đăng nhập trước khi đặt vé !");
-    }else {
-      navigate(`/travel/details/${travelId}/order`)
+    } else {
+      navigate(`/travel/details/${travelId}/order`);
     }
   };
 
@@ -102,81 +102,89 @@ const Details = () => {
     } catch (error) {}
   };
 
-  console.log(comments);
 
   const handleSetSinglePriceTable = (item) => {
     localStorage.setItem("singlePriceTable", JSON.stringify(item));
     dispatch(setSinglePriceTable(item));
   };
 
-  const getTravelImages = async()=>{
+  const getTravelImages = async () => {
     try {
-      const response = await publicRequest.get(`http://localhost:8080/api/v1/travelDetails/image/travelId/${travelId}`)
-      setTravelImages(response.data?.data); 
-    } catch (error) {
-      
-    }
-  }
+      const response = await publicRequest.get(`/travelDetails/image/travelId/${travelId}`);
+      setTravelImages(response.data?.data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     getTravelFeatured();
     getScheduleTravel();
     getPriceTable();
     getComments();
-    getTravelImages(); 
-  }, []);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    getTravelImages();
   }, []);
 
   useEffect(() => {
     dispatch(getSingleTravel(parseInt(travelId)));
   }, []);
 
-  const handleComment = async(e)=>{
-    e.preventDefault(); 
+  const handleComment = async (e) => {
+    e.preventDefault();
     if (user === null) {
       toast("Bạn cần đăng nhập trước khi đặt vé !");
-      setUserComment("");  
-      return; 
+      setUserComment("");
+      if(widthScreen < 700){
+          navigate('/login')
+      }else{
+        navigate('/'); 
+      }
+      return;
     }
     try {
       const data = {
-        userId:user?.id, 
+        userId: user?.id,
         travelId,
-        content:userComment, 
-        commentDate: moment().format().split("T")[0] 
-      }
-     const response = await publicRequest.post('/travel/comment',data)
-     setComments(comments=>[...comments,response.data?.data]); 
-     setUserComment(""); 
+        content: userComment,
+        commentDate: moment().format().split("T")[0],
+      };
+      const response = await userRequest.post("/travel/comment", data, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user"))?.accessToken || null
+          }`,
+        },
+      });
+      setComments((comments) => [...comments, response.data?.data]);
+      setUserComment("");
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
-  }
+  };
 
   console.log(travelImages);
 
   return (
     <div className="details-container">
-    
       <div className="details-item">
         <h1>{travelDetails && travelDetails.travelName}</h1>
-        <ToastContainer style={{marginTop:100,fontWeight:'bold',color:'red'}} />
+        <ToastContainer
+          style={{ marginTop: 100, fontWeight: "bold", color: "red" }}
+        />
         <div className="details-item-wrap">
           <div className="details-slice-wrap">
             <div className="arrow-btn" onClick={handleArrowBtnlick}>
               <BiRightArrow />
             </div>
             <div className="details-slice" ref={detailsSliceRef}>
-               {
-                travelImages && travelImages.map(item=>{
+              {travelImages &&
+                travelImages.map((item) => {
                   return (
-                    <img height={1000} style={{objectFit:'cover'}} src={item.image} />
-                  )
-                })
-               }
+                    <img
+                      height={1000}
+                      style={{ objectFit: "cover" }}
+                      src={item.image}
+                    />
+                  );
+                })}
             </div>
           </div>
         </div>
@@ -246,26 +254,29 @@ const Details = () => {
                       <li>
                         <h2 className="schedule-day">{item.dateName}:</h2>
                         <ul>
-                          {item.scheduleDates && item.scheduleDates.sort((x,y)=> x.id - y.id).map((schedule) => {
-                              return (
-                                <li>
-                                  <h4
-                                    style={{ marginTop: 30 }}
-                                    className="session"
-                                  >
-                                    {schedule.sessionDateName}:
-                                  </h4>
-                                  <ul>
-                                    {schedule.scheduleContent &&
-                                      schedule.scheduleContent.map(
-                                        (content) => {
-                                          return <li>- {content.content}</li>;
-                                        }
-                                      )}
-                                  </ul>
-                                </li>
-                              );
-                            })}
+                          {item.scheduleDates &&
+                            item.scheduleDates
+                              .sort((x, y) => x.id - y.id)
+                              .map((schedule) => {
+                                return (
+                                  <li>
+                                    <h4
+                                      style={{ marginTop: 30 }}
+                                      className="session"
+                                    >
+                                      {schedule.sessionDateName}:
+                                    </h4>
+                                    <ul>
+                                      {schedule.scheduleContent &&
+                                        schedule.scheduleContent.map(
+                                          (content) => {
+                                            return <li>- {content.content}</li>;
+                                          }
+                                        )}
+                                    </ul>
+                                  </li>
+                                );
+                              })}
                         </ul>
                       </li>
                     );
@@ -293,10 +304,10 @@ const Details = () => {
                         <td style={{ color: "red" }}>
                           {priceFormat(item.price)}
                         </td>
-                        <td>          
-                            <button onClick={notify} className="btn-order">
-                              Đặt vé
-                            </button>
+                        <td>
+                          <button onClick={notify} className="btn-order">
+                            Đặt vé
+                          </button>
                         </td>
                       </tr>
                     );
@@ -334,7 +345,7 @@ const Details = () => {
                       type="text"
                       placeholder="Viết bình luận của bạn..."
                       required
-                      onChange={e=>setUserComment(e.target.value)}
+                      onChange={(e) => setUserComment(e.target.value)}
                     />
                     <button type="submit">Bình luận</button>
                   </form>

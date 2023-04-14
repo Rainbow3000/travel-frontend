@@ -1,5 +1,5 @@
 @import "../../scss/button";
-
+@import "../../../responsive";
 .header-container {
   width: 100%;
   height: max-content;
@@ -9,6 +9,40 @@
   position: fixed;
   top: 0;
   z-index: 9999999;
+  .user-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    @include mobile{
+      font-size: 15px;
+    }
+  }
+  .login-btn-mobile {
+    width: 110px;
+    height: 40px;
+    background-color: blue;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    display: none;
+   @include mobile{
+    display: block;
+   }
+    &:hover {
+      color: red;
+    }
+    .link {
+      color: white;
+      span:hover {
+        color: red;
+      }
+    }
+  }
+  @include mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   background-color: #fff;
   .hot-line {
     font-weight: 600;
@@ -21,6 +55,9 @@
       color: #19549c;
       cursor: pointer;
       font-weight: 400;
+      @include mobile{
+        font-size: 30px;
+      }
     }
   }
   .header-top {
@@ -29,15 +66,41 @@
     justify-content: space-between;
     height: max-content;
     padding: 10px;
+    .menu-icon {
+      cursor: pointer;
+      @include pc {
+        display: none;
+      }
+
+      @include tablet {
+        display: block;
+      }
+    }
     .link {
       font-weight: 600;
       &:hover {
         color: blue;
       }
     }
+    @include mobile {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    @include tablet {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
   }
   .header-top-right {
-    
+    @include mobile {
+      display: none;
+    }
+
+    @include tablet {
+      display: none;
+    }
     flex: 2;
     .header-btn-login-link {
       position: relative;
@@ -60,10 +123,10 @@
         width: 100%;
         height: auto;
         padding: 10px;
-        .no-account-link{
-            color: red;
-            text-decoration: underline;
-            cursor: pointer;
+        .no-account-link {
+          color: red;
+          text-decoration: underline;
+          cursor: pointer;
         }
         .email-input,
         .password-input {
@@ -76,10 +139,10 @@
             border-radius: 5px;
             padding-left: 10px;
             border: 0.5px solid rgba(128, 128, 128, 0.387);
-            &:focus{
-                border: 1px solid blue;
+            &:focus {
+              border: 1px solid blue;
             }
-        }
+          }
         }
 
         .login-btn {
@@ -95,8 +158,8 @@
             border: none;
             background-color: rgba(0, 0, 255, 0.819);
             color: white;
-            &:hover{
-                background-color: rgba(0, 0, 255, 0.536);
+            &:hover {
+              background-color: rgba(0, 0, 255, 0.536);
             }
           }
         }
@@ -146,9 +209,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     form {
       display: flex;
       width: 1310px;
+      @include mobile {
+        width: 100%;
+      }
+
+      @include tablet {
+        width: 100%;
+      }
       height: max-content;
       justify-content: space-between;
       align-items: center;

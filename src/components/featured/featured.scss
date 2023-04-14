@@ -1,3 +1,4 @@
+@import "../../../responsive";
 .featured-container{
     width: 100%;
     height: max-content;
@@ -8,12 +9,21 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    @include mobile{
+        display: none;
+    }
+
     img{
         width: 100%;
         height: 700px;
     }
 
     .featured-introduct{
+        @include tablet{
+            width: 300px;
+            height: 300px;
+            font-size: 15px;
+          }
         position: absolute;
         width: 600px;
         height: 600px;
@@ -30,6 +40,11 @@
         top: 50px;
         padding: 10px;
         button{
+            @include tablet{
+                width: 110px;
+                font-size: 15px;
+                padding: 0 5px;
+            }
             width: 220px;
             height: 55px;
             border: none;

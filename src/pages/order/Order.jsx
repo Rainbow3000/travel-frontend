@@ -12,6 +12,7 @@ import { priceFormat } from "../../utils/convertPrice";
 import { useNavigate } from "react-router-dom";
 import { validateEmail } from "../../validate/validate";
 import { setOrderErrorMessage } from "../../store/slice/errorSlice";
+import { setUser, userLogout } from "../../store/slice/userSlice";
 
 const Order = () => {
 
@@ -104,7 +105,11 @@ const Order = () => {
        }
 
 
-      await userRequest.post('/travel/order',data); 
+      await userRequest.post('/travel/order',data,{
+        headers:{
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('user'))?.accessToken || null}` 
+        }
+      }); 
      
       
       setChildrentQuantity(0)
@@ -117,7 +122,13 @@ const Order = () => {
       toast("Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sau"); 
       navigate('/travel/order')
      }catch(error){
-        console.log(error); 
+      console.log(error);
+      // if(error.response.status === 403){
+      //   toast("Phiên đăng nhập đã hết hạn! Vui lòng đăng nhập lại.")
+      //   dispatch(userLogout()); 
+      //   dispatch(setUser(null)); 
+      //   //navigate("/")
+      // }
      }
 
   }
@@ -187,7 +198,7 @@ const Order = () => {
 
                 <div className="to-price">
                     <span>Thành tiền:</span>
-                    <span><mark>{ priceFormat((elderQuantity * singlePriceTable.price) + (childrentQuantity * (singlePriceTable.price / 2)))}</mark></span>
+                    <span><mark>{ priceFormat((elderQuantity * singlePriceTable?.price) + (childrentQuantity * (singlePriceTable?.price / 2)))}</mark></span>
                 </div>
           </div>
 
@@ -206,7 +217,7 @@ const Order = () => {
                         </div>
                         <div>
                             <span>Email</span>
-                            <input value={customerEmail} type="text" placeholder="Nhận thông tin về tour của bạn" onChange={(e)=>setCustomerEmail(e.target.value)} required />
+                            <input value={customerEmail} type="text" placeholder="Nhận thông tin " onChange={(e)=>setCustomerEmail(e.target.value)} required />
                         </div>
                         
                     </div>

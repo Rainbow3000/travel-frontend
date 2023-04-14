@@ -1,3 +1,4 @@
+@import "../../../responsive";
 .travel-list-container{
     width: 100%;
     height: auto;
@@ -6,6 +7,12 @@
     flex-direction: column;
     padding: 20px 0;
     align-items: center;
+    @include mobile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     h1{
         margin-top: 10px;
     }
@@ -15,7 +22,28 @@
         background-color: #333;
         margin-top: 5px;
     }
+    .travel-list{
+        @include mobile{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+    }
     .travel-list-item{
+        @include mobile{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @include tablet{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         width: 1300px;
         height: auto;
         background-color: #eee;
@@ -28,6 +56,13 @@
                 display: flex;
                 align-items: center;
                 li{
+                    @include mobile{
+                        font-size: 10px;
+                    }
+
+                    @include tablet{
+                        font-size: 15px;
+                    }
                     width: max-content;
                     padding: 20px;
                     border-bottom: 3px solid blue;

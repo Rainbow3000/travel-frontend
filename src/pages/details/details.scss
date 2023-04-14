@@ -1,3 +1,5 @@
+@import  "../../../responsive";
+
 .details-container {
   width: 100%;
   height: auto;
@@ -8,15 +10,36 @@
   margin-top: 120px;
   .details-item {
     width: 1300px;
+    @include mobile{
+      width: 100%;
+      padding: 0 5px;
+    }
+    @include tablet{
+      width: 100%;
+      padding: 0 5px;
+    }
     height: auto;
     display: flex;
     flex-direction: column;
     margin-top: 50px;
     .details-item-wrap {
+      @include mobile{
+        width: 100%;
+      }
+
+      @include tablet{
+        width: 100%;
+      }
       width: 1300px;
       display: flex;
       justify-content: space-between;
       .details-slice-wrap {
+        @include mobile{
+          width: 100%;
+        }
+        @include tablet{
+          width: 100%;
+        }
         position: relative;
         width: 1300px;
         height: 600px;
@@ -28,6 +51,12 @@
           display: flex;
           transition: all 1s ease;
           img {
+            @include mobile{
+              width: 100%;
+            }
+            @include tablet{
+              width: 100%;
+            }
             width: 1300px;
             height: 600px;
             object-fit: cover;
@@ -96,6 +125,12 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    @include mobile{
+      flex-direction: column;
+    }
+    @include tablet{
+      flex-direction: column;
+    }
     .details-btn-choose{
       width: 220px;
       height: 40px;
@@ -105,6 +140,16 @@
       font-weight:bold;
       border: none;
       cursor: pointer;
+      @include mobile{
+        width: 110px;
+        font-size: 10px;
+        margin-top: 20px;
+      }
+      @include tablet{
+        width: 110px;
+        font-size: 15px;
+        margin-top: 20px;
+      }
       &:hover{
         background-color: rgba(0, 0, 255, 0.693);
       }
@@ -130,6 +175,9 @@
       font-weight: bold;
       margin-right: 50px;
       cursor: pointer;
+      @include mobile{
+        font-size:12px;
+      }
     }
   }
   .details-text{
@@ -137,6 +185,9 @@
     font-size: 18px;
     color: gray;
     padding: 10px 0;
+    @include mobile{
+      width: 100%;
+    }
     .featured-featured,.schedule-tour-title{
       color: #333;
       font-weight: 500;
@@ -149,6 +200,9 @@
     .featured-details{
       display: flex;
       margin-top: 30px;
+      @include mobile{
+        width: 100%;
+      }
      
       ul{
         display: flex;
@@ -164,6 +218,9 @@
     }
     .schedule ul{
       padding: 0 0 0 30px;
+      @include mobile{
+        width: 100%;
+      }
     }
   }
   .details-table-price{
@@ -177,6 +234,9 @@
     height: max-content;
     padding: 20px 0;
     margin-top: 30px;
+    @include mobile{
+      font-size: 10px;
+    }
   }
   
   #customers td, #customers th {
@@ -206,6 +266,10 @@
     color: white;
     cursor: pointer;
     font-size: 18px;
+    @include mobile{
+      width: 110px;
+      font-size: 10px;
+    }
 
   }
 
