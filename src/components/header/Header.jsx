@@ -20,7 +20,7 @@ const Header = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [textSearch, setTextSearch] = useState("");
-
+  const [widthScreen,setWidthScreen] = useState(window.innerWidth)
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <ToastContainer style={{ marginTop: 200 }} />
+      <ToastContainer style={{ marginTop: 200, width:widthScreen < 480 && "50%" }} />
       <div className="header-top">
         <div className="header-top-left">
           <Link className="link" to="/">

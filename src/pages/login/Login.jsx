@@ -18,7 +18,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  const [widthScreen,setWidthScreen] = useState(window.innerWidth)
   const { loginErrorMessage } = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,6 +72,7 @@ const Login = () => {
         style={{
           color: successMessage.length > 0 ? "green" : "red",
           marginTop: 150,
+          width:widthScreen < 480 && "50%"
         }}
       />
       <div className="register-form">

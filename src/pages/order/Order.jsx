@@ -27,7 +27,7 @@ const Order = () => {
   const [customerPhone,setCustomerPhone] = useState(""); 
   const [customerAddress,setCustomerAddress] = useState(""); 
   const [customerNote, setCustomerNote] = useState(""); 
-
+  const [widthScreen,setWidthScreen] = useState(window.innerWidth)
   const dispatch = useDispatch(); 
   const navigate = useNavigate(); 
 
@@ -152,7 +152,7 @@ const Order = () => {
 
   return (
     <div className="order-container">
-      <ToastContainer style={{marginTop:120}}/>
+      <ToastContainer style={{marginTop:120, width:widthScreen < 480 && "50%"}}/>
       <div className="order-item">
         <h1>Thông tin chuyến đi</h1>
         <div className="order-details">
