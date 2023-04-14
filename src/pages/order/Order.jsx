@@ -34,7 +34,7 @@ const Order = () => {
   const {travelDetails} = useSelector(state=>state.travel); 
   const {singlePriceTable} = useSelector(state=>state.priceTable); 
   const {orderErrorMessage} = useSelector(state=>state.error); 
-
+  const{user} = useSelector(state=>state.user);
   const handleDecrement = (type)=>{
      if(type === "elder" && elderQuantity <= 1){
         return; 
@@ -64,15 +64,15 @@ const Order = () => {
     try{
        e.preventDefault(); 
        const data = {
-         userId:1, 
-         travelId:1,
+         userId:user?.id, 
+         travelId:travelId,
          customerName,
          totalPrice:(elderQuantity * singlePriceTable.price) + (childrentQuantity * (singlePriceTable.price / 2)),
          customerEmail,
          customerAddress,
          customerNote,
          customerPhone,
-         peopleQuantity:elderQuantity + childrentQuantity, 
+         peopelQuantity:elderQuantity + childrentQuantity, 
          status:"Chờ xác nhận"
        }
 
