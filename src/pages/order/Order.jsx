@@ -19,6 +19,8 @@ const Order = () => {
   const location  = useLocation(); 
   const travelId = location.pathname.split('/')[3]; 
 
+  console.log(travelId);
+
   const [elderQuantity,setElderQuantity] = useState(1);
   const  [childrentQuantity,setChildrentQuantity] = useState(0); 
 

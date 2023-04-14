@@ -12,8 +12,10 @@
   .user-icon {
     margin-right: 10px;
     cursor: pointer;
+    display: none;
     @include mobile{
       font-size: 15px;
+      display: block;
     }
   }
   .login-btn-mobile {
@@ -68,8 +70,9 @@
     padding: 10px;
     .menu-icon {
       cursor: pointer;
-      @include pc {
-        display: none;
+      display: none;
+      @include mobile {
+        display: block;
       }
 
       @include tablet {

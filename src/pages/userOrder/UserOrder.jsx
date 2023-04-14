@@ -59,7 +59,7 @@ const UserOrder = () => {
 
         {
           order && order.map(item=>{
-            const travelFilter = travels && travels.find(element => element.id === item.id); 
+            const travelFilter = travels && travels.find(element => element.id === item.travelId); 
             console.log(travelFilter?.travelName);
             return (
               <tr>

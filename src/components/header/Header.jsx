@@ -109,7 +109,9 @@ const Header = () => {
         )}
 
           <div style={{display:'flex',alignItems:'center'}}>
-              {user && (
+              {
+              
+              user && (
                 <li className="user-icon" style={{ fontWeight: "bold" }}>
                   <BiUser /> {user.email.split("@")[0]}
                 </li>
