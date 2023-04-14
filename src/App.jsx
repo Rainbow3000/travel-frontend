@@ -187,7 +187,7 @@ function App() {
         <div className="app-container">
         <Header/>
         <Routes>
-          <Route path='/' basename={process.env.PUBLIC_URL} element={<Home/>} />
+          <Route path='/' element={<Home/>} />
           <Route path= '/travel/order' element= {<UserOrder/>} />
           <Route path='/category/details/:id' element ={<CategoryDetails/>} />
           <Route path='/register' element={<Register/>} />
