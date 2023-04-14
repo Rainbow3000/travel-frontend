@@ -55,7 +55,6 @@ const UserOrder = () => {
          
           <th>Tổng tiền</th>
           <th>Trạng thái</th>
-          <th>Thao tác</th>
         </tr>
 
         {
@@ -88,9 +87,6 @@ const UserOrder = () => {
                
                 <td>{item.totalPrice}</td>
                 <td>{item.status}</td>
-                <td>
-                  <button className="btn-delete">HỦY</button>
-                </td>
             </tr>
             )
           })

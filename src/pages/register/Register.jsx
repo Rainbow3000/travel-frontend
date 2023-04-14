@@ -75,7 +75,8 @@ const Register = () => {
         style={{
           color: successMessage.length > 0 ? "green" : "red",
           marginTop: 150,
-          width:screenWidth < 480 && "50%"
+          width:screenWidth < 480 && "50%",
+          position:'relative',right:0
         }}
       />
       <div className="register-form">
