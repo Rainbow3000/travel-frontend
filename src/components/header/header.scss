@@ -29,6 +29,10 @@
    @include mobile{
     display: block;
    }
+
+   @include tablet{
+    display: block;
+   }
     &:hover {
       color: red;
     }
