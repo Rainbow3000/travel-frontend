@@ -154,7 +154,6 @@ const Order = () => {
 
   return (
     <div className="order-container">
-      <ToastContainer style={{marginTop:120, width:widthScreen < 480 && "50%"}}/>
       <div className="order-item">
         <h1>Thông tin chuyến đi</h1>
         <div className="order-details">

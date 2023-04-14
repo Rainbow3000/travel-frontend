@@ -68,13 +68,6 @@ const Login = () => {
 
   return (
     <div className="register-container">
-      <ToastContainer
-        style={{
-          color: successMessage.length > 0 ? "green" : "red",
-          marginTop: 150,
-          width:widthScreen < 480 && "50%"
-        }}
-      />
       <div className="register-form">
         <form style={{padding:10,width:"90%"}} action="" onSubmit={handleSubmitForm}>
           <h1>Đăng nhập</h1>

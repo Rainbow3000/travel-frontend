@@ -71,13 +71,6 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <ToastContainer
-        style={{
-          color: successMessage.length > 0 ? "green" : "red",
-          marginTop: 150,
-          width:screenWidth < 480 && "50%"
-        }}
-      />
       <div className="register-form">
         <form action="" onSubmit={handleSubmitForm}>
           <h1>Đăng ký tài khoản</h1>
