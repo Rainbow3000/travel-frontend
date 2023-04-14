@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8080/api/v1"
+const baseURL = "https://proud-time-production.up.railway.app/api/v1"
  
 
 const publicRequest = axios.create({
