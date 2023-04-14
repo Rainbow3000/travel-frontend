@@ -2,11 +2,15 @@
 .travel-cate-container{
     @include mobile{
         flex-direction: column;
+        width: 100%;
+        padding: 10px;
     }
 
     @include tablet{
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        padding: 10px;
     }
     margin-top: 30px;
     width: 100%;
@@ -26,12 +30,33 @@
             height: 300px;
             object-fit: cover;
             border-radius: 5px;
+            @include mobile{
+                width: 100%;
+                margin-top: 10px;
+            }
+            @include tablet{
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+        @include mobile{
+            width: 100%;
+        }
+        @include tablet{
+            width: 100%;
+            margin-top: 10px;
         }
     }
     .trave-cate-details{
         width: 400px;
         height: auto;
         display: flex;
+        @include mobile{
+            width: 100%;
+        }
+        @include tablet{
+            width: 100%;
+        }
         flex-direction: column;
         .cate-travel-price{
             display: flex;
