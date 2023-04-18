@@ -125,12 +125,12 @@ const Header = () => {
           <ul>
             <li className="hot-line">Hotline:+123456789</li>
             <li>
-              <Link className="link" to="">
+              <Link className="link" to="#">
                 Giới thiệu
               </Link>
             </li>
             <li>
-              <Link className="link" to="">
+              <Link className="link" to="#">
                 Điều khoản
               </Link>
             </li>
