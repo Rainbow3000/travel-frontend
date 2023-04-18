@@ -245,7 +245,8 @@ const Details = () => {
             </h1>
             <div className="schedule" id="schedule">
               <ul>
-                {travelSchedule &&
+                {
+                travelSchedule.length > 0 ? (
                   travelSchedule.map((item, index) => {
                     return (
                       <li>
@@ -277,7 +278,9 @@ const Details = () => {
                         </ul>
                       </li>
                     );
-                  })}
+                  })) : <span style={{ position:'relative', left:'50%', top:20, transform:"translateX(50%)"}} >Đang cập nhật !</span>
+                
+                }
               </ul>
 
               <h1 className="details-table-price" id="price-table">

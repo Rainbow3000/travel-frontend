@@ -8,7 +8,7 @@ const Footer = () => {
             <h1>LINK-TRAVEL</h1>
             <ul>
               <li>Hotline:+123456789</li>
-              <li>Mail:nguyenducthinh0401@gmail.com</li>
+              <li>Email:nguyenducthinh0401@gmail.com</li>
               <li></li>
             </ul>
         </div>
