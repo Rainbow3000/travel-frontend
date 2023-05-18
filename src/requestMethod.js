@@ -1,15 +1,12 @@
 import axios from "axios";
 
-const baseURL = "https://travel-backend-production-ea7f.up.railway.app/api/v1"
- 
+const baseURL = "http://localhost:8080/api/v1";
 
 const publicRequest = axios.create({
-    baseURL:baseURL
-}) 
+  baseURL: baseURL,
+});
 const userRequest = axios.create({
-    baseURL:baseURL
-}) 
+  baseURL: baseURL,
+});
 
-
-
-export {publicRequest,userRequest}; 
+export { publicRequest, userRequest };

@@ -34,16 +34,7 @@ const UserOrder = () => {
         <h1>Lịch đã đặt</h1>
       <table id="customers">
         <tr>
-          <th>Tên khách hàng</th>
-          {
-            windowWidth >= 700  &&  <th>Email</th>
-          }
-         
-         
-          {
-            windowWidth >= 700  &&   <th>Địa chỉ</th>
-          }
-          <th>Số điện thoại</th>
+          
           <th>Tên chuyến đi</th>
           {
             windowWidth >= 700  &&   <th>Số người</th>
@@ -63,17 +54,7 @@ const UserOrder = () => {
             console.log(travelFilter?.travelName);
             return (
               <tr>
-                <td>{item.customerName}</td>
-                {
-                  windowWidth >= 700 && <td>{item.customerEmail}</td>
-                }
-
-{
-                  windowWidth >= 700 &&  <td>{item.customerAddress}</td>
-                }
-                
                
-                <td>{item.customerPhone}</td>
 
                 <td>{travelFilter && travelFilter.travelName}</td>
 
