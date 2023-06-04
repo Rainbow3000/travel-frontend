@@ -112,10 +112,10 @@ const Order = () => {
         },
       });
 
-      await axios.post(`http://localhost:5000/api/v1/email`, {
-        email: customerEmail,
-        username: customerName,
-      });
+      // await axios.post(`http://localhost:5000/api/v1/email`, {
+      //   email: customerEmail,
+      //   username: customerName,
+      // });
 
       setChildrentQuantity(0);
       setElderQuantity(1);
