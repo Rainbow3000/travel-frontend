@@ -123,7 +123,6 @@ const Header = () => {
 
         <div className="header-top-right">
           <ul>
-            <li className="hot-line">Hotline:+123456789</li>
             <li>
               <Link className="link" to="#">
                 Giới thiệu
@@ -207,9 +206,9 @@ const Header = () => {
               </>
             ) : (
               <>
-                <li style={{ display: "flex", alignItems: "center" }}>
+                <li style={{ display: "flex", alignItems: "center",fontSize:18 }}>
                   <BiUser style={{ marginRight: 10 }} />
-                  <li style={{ fontWeight: "bold" }}>
+                  <li style={{ fontWeight: "bold",fontSize:20,color:'green' }}>
                     {user.email.split("@")[0]}
                   </li>
                 </li>

@@ -112,10 +112,7 @@ const Order = () => {
         },
       });
 
-      // await axios.post(`http://localhost:5000/api/v1/email`, {
-      //   email: customerEmail,
-      //   username: customerName,
-      // });
+     
 
       setChildrentQuantity(0);
       setElderQuantity(1);
@@ -126,6 +123,10 @@ const Order = () => {
       setCustomerPhone("");
       toast("Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sau");
       navigate("/travel/order");
+      await axios.post(`http://localhost:5000/api/email`, {
+        email: customerEmail,
+        username: customerName,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -156,20 +157,6 @@ const Order = () => {
             <li>
               <span>Tên chuyến:</span>
               <span>{travelDetails && travelDetails.travelName}</span>
-            </li>
-
-            <li>
-              <span>Phương tiện:</span>
-              <span>{singlePriceTable && singlePriceTable.typeTransport}</span>
-            </li>
-
-            <li>
-              <span>Điểm xuất phát:</span>
-              <span>{singlePriceTable && singlePriceTable.place}</span>
-            </li>
-            <li>
-              <span>Ngày xuất phát:</span>
-              <span>{singlePriceTable && singlePriceTable.dateStart}</span>
             </li>
           </ul>
 
@@ -224,10 +211,6 @@ const Order = () => {
               </span>
             </div>
           </div>
-
-          <h1 className="customer-info-title">
-            Thông tin liên hệ của (Anh/Chị)
-          </h1>
           <div className="customer-info-item">
             <form action="" onSubmit={handleSubmitForm}>
               <span style={{ color: "red" }}>

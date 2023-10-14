@@ -6,11 +6,7 @@ const Footer = () => {
       <div className='footer-item'>
         <div className='footer-logo'>
             <h1>LINK-TRAVEL</h1>
-            <ul>
-              <li>Hotline:+123456789</li>
-              <li>Email:nguyenducthinh0401@gmail.com</li>
-              <li></li>
-            </ul>
+           
         </div>
         <div>
               <div></div>

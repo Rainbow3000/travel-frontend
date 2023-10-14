@@ -37,7 +37,7 @@ const Register = () => {
 
       const response = await publicRequest.post("/auth/register", {
         email,
-        password,
+        password
       });
 
       if (response.data?.message === "SUCCESS") {

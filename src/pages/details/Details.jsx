@@ -177,7 +177,7 @@ const Details = () => {
                   return (
                     <img
                       height={1000}
-                      style={{ objectFit: "cover" }}
+                      style={{ objectFit: "fill" }}
                       src={item.image}
                     />
                   );
@@ -247,7 +247,7 @@ const Details = () => {
               <ul>
                 {
                 travelSchedule.length > 0 ? (
-                  travelSchedule.map((item, index) => {
+                  travelSchedule.sort((x, y) => x.id - y.id).map((item, index) => {
                     return (
                       <li>
                         <h2 className="schedule-day">{item.dateName}:</h2>
@@ -259,10 +259,10 @@ const Details = () => {
                                 return (
                                   <li>
                                     <h4
-                                      style={{ marginTop: 30 }}
+                                      style={{ marginTop:10 }}
                                       className="session"
                                     >
-                                      {schedule.sessionDateName}:
+                                      {schedule.sessionDateName}
                                     </h4>
                                     <ul>
                                       {schedule.scheduleContent &&
@@ -298,7 +298,7 @@ const Details = () => {
                   priceTable.map((item) => {
                     return (
                       <tr onClick={() => handleSetSinglePriceTable(item)}>
-                        <td>{item.dateStart}</td>
+                        <td>{item.dateStart.split('-').reverse().join(' / ')}</td>
                         <td>{item.place}</td>
                         <td>{item.typeTransport}</td>
                         <td style={{ color: "red" }}>

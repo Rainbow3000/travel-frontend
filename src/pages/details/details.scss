@@ -132,14 +132,15 @@
       flex-direction: column;
     }
     .details-btn-choose{
-      width: 220px;
-      height: 40px;
-      background-color: blue;
+      width: 120px;
+      height: 45px;
       border-radius: 5px;
-      font-size: 18px;
-      font-weight:bold;
       border: none;
+      z-index: 999;
+      background-color: rgba(0, 0, 255, 0.624);
+      color: white;
       cursor: pointer;
+      font-size: 18px;
       @include mobile{
         width: 110px;
         font-size: 10px;
@@ -160,11 +161,11 @@
     }
   }
   .details-cate-list{
-    width: 100%;
+    width: 50%;
     height:max-content; 
     display: flex;
     align-items:center;
-    border-bottom: 3px solid #333;
+    border-bottom: 1px solid #333;
     padding: 10px 0;
     .details-link{
       text-decoration: none;
@@ -209,10 +210,14 @@
         flex-direction: column;
         text-align: left;
         align-items: flex-start;
+        height: auto;
         li{
           font-weight: normal;
           font-size: 18px;
           color: gray;
+          h4{
+            margin-top: 10px !important;
+          }
         }
       }
     }
@@ -257,12 +262,12 @@
     color: white;
   }
   .btn-order{
-    width: 220px;
+    width: 120px;
     height: 45px;
-    border: none;
     border-radius: 5px;
-    font-weight: bold;
-    background-color: blue;
+    border: none;
+    z-index: 999;
+    background-color: rgba(0, 0, 255, 0.624);
     color: white;
     cursor: pointer;
     font-size: 18px;
@@ -293,7 +298,7 @@
       justify-content: space-around;
       align-items: center;
       input{
-        width: 90%;
+        width: 80%;
         height: 45px;
         outline: none;
         border-radius: 5px;
@@ -306,13 +311,13 @@
       button{
         width: 220px;
         height: 45px;
-        background-color: blue;
-        color: white;
         border-radius: 5px;
         border: none;
-        font-size: 20px;
-        margin-left: 10px;
+        z-index: 999;
+        background-color: rgba(0, 0, 255, 0.624);
+        color: white;
         cursor: pointer;
+        font-size: 18px;
         &:hover{
           background-color: rgba(35, 35, 202, 0.916);
         }
